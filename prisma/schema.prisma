@@ -56,7 +56,8 @@ model VerificationToken {
 
 model Task {
   id        String   @id @default(cuid())
-  title     String
+  heading   String
+  checked   Boolean  @default(false)
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())

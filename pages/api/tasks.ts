@@ -23,14 +23,14 @@ export default async function handler(req: any, res: any) {
       return res.status(401).json({ unauthorized: true });
     }
 
-    if (!req.body.data.title) {
+    if (!req.body.data.heading) {
       return res.status(500).json({ error: "validation error" });
     }
 
     const task = await prisma.task.create({
       data: {
         userId: user.id,
-        title: req.body.data.title,
+        heading: req.body.data.heading,
       },
     });
 
@@ -57,12 +57,86 @@ export default async function handler(req: any, res: any) {
 
     const tasks = await prisma.task.findMany({
       where: { userId: user.id },
+      orderBy: {
+        createdAt: "asc",
+      },
     });
 
     if (tasks) {
       res.status(200).json(tasks);
     } else {
       return res.status(500).json({ error: "Something went wrong" });
+    }
+    res.end();
+  }
+
+  // HTTP DELETE METHOD - delete task
+
+  if (req.method === "DELETE") {
+    const user = await prisma.user.findFirst({
+      where: {
+        email: session.user?.email!,
+      },
+    });
+
+    if (!user) {
+      return res.status(401).json({ unauthorized: true });
+    }
+
+    if (!req.body.id) {
+      return res.status(500).json({ error: "validation error" });
+    }
+
+    const task = await prisma.task.delete({
+      where: {
+        id: req.body.id,
+      },
+    });
+
+    if (task) {
+      res.status(200).json(task);
+    } else {
+      return res.status(500).json({ error: "something went wrong" });
+    }
+    res.end();
+  }
+
+  // HTTP UPDATE METHOD - update task
+
+  if (req.method === "PUT") {
+    const user = await prisma.user.findFirst({
+      where: {
+        email: session.user?.email!,
+      },
+    });
+
+    if (!user) {
+      return res.status(401).json({ unauthorized: true });
+    }
+
+    if (!req.body.data.id) {
+      return res.status(500).json({ error: "validation error" });
+    }
+
+    const task = await prisma.task.findUnique({
+      where: {
+        id: req.body.data.id,
+      },
+    });
+
+    await prisma.task.update({
+      where: {
+        id: req.body.data.id,
+      },
+      data: {
+        checked: task?.checked === true ? false : true,
+      },
+    });
+
+    if (task) {
+      res.status(200).json(task);
+    } else {
+      return res.status(500).json({ error: "something went wrong" });
     }
     res.end();
   } else {

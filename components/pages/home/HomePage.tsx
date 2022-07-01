@@ -2,6 +2,7 @@ import axios from "axios";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 import React, { ReactNode, useEffect, useState } from "react";
+import Tasks from "./Main/Tasks";
 
 interface HomePageProps {
   children?: ReactNode;
@@ -9,50 +10,76 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ children, session }) => {
-  const [title, setTitle] = useState("");
-  const [tasks, setTasks] = useState<[]>();
+  const [newTask, setNewTask] = useState("");
+  const [titleError, setTitleError] = useState("");
+  const [tasks, setTasks] = useState<[] | any>();
 
-  const sendTask = async (e: any) => {
-    e.preventDefault();
-    await axios.post("api/tasks", {
-      data: {
-        title: title,
-      },
+  const getData = async () => {
+    await axios.get("api/tasks").then((res) => {
+      setTasks(res.data);
     });
   };
 
+  // Get the tasks from database
   useEffect(() => {
-    const getData = async () => {
-      await axios.get("api/tasks").then((res) => {
-        console.log(res.data);
-        setTasks(res.data);
-      });
-    };
     getData();
-  }, [tasks]);
+  }, []);
+
+  const handleAddTask = async (e: any) => {
+    e.preventDefault();
+    if (newTask.length < 3) {
+      setTitleError("Please enter more than 3 characters");
+      return;
+    } else {
+      setTitleError("");
+    }
+    await axios.post("api/tasks", {
+      data: {
+        heading: newTask,
+      },
+    });
+    getData();
+    setNewTask("");
+  };
+
+  const removeTask = async (taskId: any) => {
+    await axios.delete("api/tasks", {
+      data: {
+        id: taskId,
+      },
+    });
+    setTasks(tasks.filter((task: any) => task.id !== taskId));
+  };
+
+  const toggleComplete = async (taskId: any) => {
+    await axios.put("api/tasks", {
+      data: {
+        id: taskId,
+      },
+    });
+    const updatedTasks = tasks.map((task: any) => {
+      if (task.id === taskId) {
+        return { ...task, checked: !task.checked };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
 
   if (session) {
     return (
       <>
-        Signed in as {session.user?.name} <br />{" "}
-        <div className="flex flex-col">
-          <form onSubmit={sendTask}>
-            <div>
-              <label>
-                Title:
-                <input
-                  name="title"
-                  className="border"
-                  onChange={(e) => setTitle(e.target.value)}
-                ></input>
-              </label>
-            </div>
-            <button type="submit">Submit</button>
-          </form>
-
-          {tasks?.map((task: any) => (
-            <div key={task.id}>{task.title}</div>
-          ))}
+        <div className="bg-primary-200 min-h-screen">
+          Signed in as {session.user?.name} <br />{" "}
+          <Tasks
+            titleError={titleError}
+            startingTasks={tasks}
+            handleAddTask={handleAddTask}
+            newTask={newTask}
+            setNewTask={setNewTask}
+            removeTask={removeTask}
+            toggleComplete={toggleComplete}
+          ></Tasks>
         </div>
       </>
     );
@@ -61,7 +88,7 @@ const HomePage: React.FC<HomePageProps> = ({ children, session }) => {
   return (
     <>
       <div>
-        <span>NO PERMISION</span>
+        <span>Please login or create an account to see your tasks</span>
       </div>
     </>
   );
