@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 import Tasks from "../components/pages/home/Main/Tasks";
 
 const startingTasks = [
-  { id: uuidv4(), heading: "Task1", checked: true },
-  { id: uuidv4(), heading: "Task2", checked: false },
-  { id: uuidv4(), heading: "Task3", checked: false },
+  { id: "1", heading: "Task1", checked: true },
+  { id: "2", heading: "Task2", checked: false },
+  { id: "3", heading: "Task3", checked: false },
 ];
 
 export default function Component(props: any) {

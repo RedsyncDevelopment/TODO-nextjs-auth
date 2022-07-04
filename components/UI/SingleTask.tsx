@@ -15,7 +15,6 @@ const Singletask: React.FC<SingletaskProps> = ({
   const [showButton, setShowButton] = useState(false);
 
   const toggleCompleted = (e: any) => {
-    console.log(e.target.id);
     toggleComplete(e.target.id);
   };
 
@@ -34,7 +33,8 @@ const Singletask: React.FC<SingletaskProps> = ({
           <FormControlLabel
             control={
               <Checkbox
-                id={task.id.toString()}
+                // FIXME error when not loged in - different task id on server and client
+                id={task.id}
                 onChange={toggleCompleted}
                 checked={task.checked}
               />
@@ -50,6 +50,7 @@ const Singletask: React.FC<SingletaskProps> = ({
             }
           ></FormControlLabel>
         </FormGroup>
+
         {showButton && (
           <button id={task.id} onClick={handleClick}>
             Delete
