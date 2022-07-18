@@ -13,6 +13,7 @@ const Register: React.FC<RegisterProps> = () => {
   const [errorEmail, setErrorEmail] = useState<string>();
   const [errorName, setErrorName] = useState<string>();
   const [errorPassword, setErrorPassword] = useState<string>();
+  const [loading, setLoading] = useState<string>("Sign Up");
 
   const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -41,8 +42,10 @@ const Register: React.FC<RegisterProps> = () => {
       name: name,
       password: password,
     };
+    setLoading("Please wait...");
 
     await axios.post("/api/register", data).catch((err: any) => {
+      setLoading("Sign Up");
       setErrorEmail(err.response.data.err);
     });
     signIn("credentials", {
@@ -52,6 +55,7 @@ const Register: React.FC<RegisterProps> = () => {
       redirect: false,
     })
       .then(function (result: any) {
+        setLoading("Sign Up");
         router.push(result.url);
       })
       .catch((err) => {
@@ -116,7 +120,7 @@ const Register: React.FC<RegisterProps> = () => {
             type="submit"
             className="w-full mt-4 border-2 py-1 font-semibold"
           >
-            Sign Up
+            {loading}
           </button>
         </form>
       </div>

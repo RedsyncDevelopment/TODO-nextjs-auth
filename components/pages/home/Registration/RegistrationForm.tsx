@@ -18,8 +18,6 @@ const RegistrationFrom: React.FC<RegistrationFromProps> = ({ children }) => {
   const setShowModal = useStore((state) => state.setShowModal);
   const [openRegister, setOpenRegister] = useState(false);
 
-  console.log(openRegister);
-
   const handleOpenRegister = () => {
     setOpenRegister((current) => !current);
   };

@@ -12,28 +12,32 @@ const SignIn: React.FC<SignInProps> = ({ providers }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const handleLogin = (event: any) => {
+  const [loading, setLoading] = useState<string>("Login");
+  const handleLogin = async (event: any) => {
     event.preventDefault();
     event.stopPropagation();
 
-    signIn("credentials", {
+    setLoading("Please wait...");
+    const response = await signIn("credentials", {
       email: email,
       password,
       redirect: false,
       callbackUrl: "/home",
-    }).then(function (result: any) {
-      if (result.error !== null) {
-        if (result.status === 401) {
-          setLoginError(
-            "Your username/password combination was incorrect. Please try again!"
-          );
-        } else {
-          setLoginError(result.error);
-        }
-      } else {
-        router.push(result.url);
-      }
     });
+    if (response.error !== null) {
+      if (response.status === 401) {
+        setLoading("Login");
+        setLoginError(
+          "Your username/password combination was incorrect. Please try again!"
+        );
+      } else {
+        setLoading("Login");
+        setLoginError(response.error);
+      }
+    } else {
+      setLoading("Login");
+      router.push(response.url);
+    }
   };
 
   return (
@@ -57,7 +61,7 @@ const SignIn: React.FC<SignInProps> = ({ providers }) => {
         />
       </label>
       <button type="submit" className="w-full mt-4 border-2 py-1 font-semibold">
-        <span className="">Login</span>
+        <span className="">{loading}</span>
       </button>
       <div className="w-64 h-8 my-2 flex justify-center items-center self-center text-center">
         <span className="text-sm">{loginError}</span>
