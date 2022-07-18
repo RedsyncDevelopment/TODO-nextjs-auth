@@ -13,31 +13,32 @@ const SignIn: React.FC<SignInProps> = ({ providers }) => {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loading, setLoading] = useState<string>("Login");
-  const handleLogin = async (event: any) => {
+  const handleLogin = (event: any) => {
     event.preventDefault();
     event.stopPropagation();
-
     setLoading("Please wait...");
-    const response = await signIn("credentials", {
+
+    signIn("credentials", {
       email: email,
       password,
       redirect: false,
       callbackUrl: "/home",
-    });
-    if (response.error !== null) {
-      if (response.status === 401) {
-        setLoading("Login");
-        setLoginError(
-          "Your username/password combination was incorrect. Please try again!"
-        );
+    }).then(function (result: any) {
+      if (result.error !== null) {
+        if (result.status === 401) {
+          setLoading("Login");
+          setLoginError(
+            "Your username/password combination was incorrect. Please try again!"
+          );
+        } else {
+          setLoading("Login");
+          setLoginError(result.error);
+        }
       } else {
         setLoading("Login");
-        setLoginError(response.error);
+        router.push(result.url);
       }
-    } else {
-      setLoading("Login");
-      router.push(response.url);
-    }
+    });
   };
 
   return (
