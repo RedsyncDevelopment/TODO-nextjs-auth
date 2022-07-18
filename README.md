@@ -1,34 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Simple TODO app (with User login)
 
-## Getting Started
+Simple TODO app but rather than just storing task in React state, it has a functionality to store tasks to a PosgreSQL database. To store a task, user has to be loged in. Authentication and authorization are handled via [NextAuth](https://next-auth.js.org/)
 
-First, run the development server:
+## How to use?
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+This app shows data about all countries in the world. Home Page show all the countries fetch from [REST Countries API](https://restcountries.com/) and some basic information about them. There is an option to serach for specific country or filter them by continent. You can click on a specific country or visit [https://discover-countries-redsync.netlify.app/country/{country-alpha3Code}] to get more information about specific country. There is also an option to change a theme color to "Dark" or "Light"
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How it works?
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+I've used [REST Countries API](https://restcountries.com/) to fetch information about countries and then display it on screen. There is also an option to select specific country and see more detailed infomration.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Used technologies:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Frontend part:
 
-## Learn More
+#### NextJS
 
-To learn more about Next.js, take a look at the following resources:
+I use TypeScript for all my React project and you can find more about that in official create-react-app [documentation](https://create-react-app.dev/docs/adding-typescript/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Tailwind
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Setting up Tailwind for React projects can be found at [https://tailwindcss.com/docs/guides/create-react-app](https://tailwindcss.com/docs/guides/create-react-app)
 
-## Deploy on Vercel
+#### TypeScript
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+I use TypeScript for all my React project and you can find more about that in official create-react-app [documentation](https://create-react-app.dev/docs/adding-typescript/)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Backend part
+
+#### Prisma ORM
+
+I use TypeScript for all my React project and you can find more about that in official create-react-app [documentation](https://create-react-app.dev/docs/adding-typescript/)
+
+#### PostgreSQL
+
+I use TypeScript for all my React project and you can find more about that in official create-react-app [documentation](https://create-react-app.dev/docs/adding-typescript/)
+
+#### NextAuth
+
+I use TypeScript for all my React project and you can find more about that in official create-react-app [documentation](https://create-react-app.dev/docs/adding-typescript/)

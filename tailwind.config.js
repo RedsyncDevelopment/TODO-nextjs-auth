@@ -5,12 +5,12 @@ module.exports = {
   ],
   theme: {
     colors: {
-      "primary-200": "#51cf66",
-      "primary-400": "#37b24d",
-      "primary-700": "#2b8a3e",
-      "secondary-200": "#ffa94d",
-      "secondary-400": "#fd7e14",
-      "secondary-700": "#e8590c",
+      "primary-200": "#0ca678",
+      "primary-400": "#099268",
+      "primary-700": "#087f5b",
+      "secondary-200": "#495057",
+      "secondary-400": "#343a40",
+      "secondary-700": "#212529",
     },
     fontFamily: {
       sans: ["Noto Sans", "sans-serif"],

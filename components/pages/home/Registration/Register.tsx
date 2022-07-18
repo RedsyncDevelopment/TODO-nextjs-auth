@@ -31,7 +31,7 @@ const Register: React.FC<RegisterProps> = () => {
       return;
     }
     if (password.length <= 5) {
-      setErrorPassword("Password need to have at least 6 characters");
+      setErrorPassword("Password needs to have at least 6 characters");
       return;
     } else {
       setErrorPassword("");
@@ -65,44 +65,59 @@ const Register: React.FC<RegisterProps> = () => {
 
   return (
     <>
-      <div>
-        <form onSubmit={RegisterUser} className="flex flex-col">
-          <label>
-            Name:
+      <div className="mt-4">
+        <form onSubmit={RegisterUser} className="flex flex-col gap-1">
+          <label className="flex justify-between items-center">
+            Full name:
             <input
               name="name"
               type="text"
-              placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className="inputField"
             ></input>
           </label>
-          {errorName && <div className="text-secondary-200">{errorName}</div>}
-          <label>
+          {errorName && (
+            <div className="w-64 sm:w-80 ">
+              <p className="text-sm font-semibold leading-4">{errorName}</p>
+            </div>
+          )}
+          <label className="flex justify-between items-center">
             Email:
             <input
               name="email"
               type="text"
-              placeholder="Email"
               value={email}
               onChange={handleEmail}
+              className="inputField"
             ></input>
           </label>
-          {errorEmail && <div className="text-secondary-200">{errorEmail}</div>}
-          <label>
+          {errorEmail && (
+            <div className="w-64 sm:w-80 ">
+              <p className="text-sm font-semibold leading-4">{errorEmail}</p>
+            </div>
+          )}
+          <label className="flex justify-between items-center">
             Password:
             <input
               name="password"
               type="password"
-              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="inputField"
             ></input>
           </label>
           {errorPassword && (
-            <div className="text-secondary-200">{errorPassword}</div>
+            <div className="w-64 sm:w-80 ">
+              <p className="text-sm font-semibold leading-4">{errorPassword}</p>
+            </div>
           )}
-          <button type="submit">Sign Up</button>
+          <button
+            type="submit"
+            className="w-full mt-4 border-2 py-1 font-semibold"
+          >
+            Sign Up
+          </button>
         </form>
       </div>
     </>

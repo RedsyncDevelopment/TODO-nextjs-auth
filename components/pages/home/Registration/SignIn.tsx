@@ -25,7 +25,7 @@ const SignIn: React.FC<SignInProps> = ({ providers }) => {
       if (result.error !== null) {
         if (result.status === 401) {
           setLoginError(
-            "Your username/password combination was incorrect. Please try again"
+            "Your username/password combination was incorrect. Please try again!"
           );
         } else {
           setLoginError(result.error);
@@ -37,25 +37,31 @@ const SignIn: React.FC<SignInProps> = ({ providers }) => {
   };
 
   return (
-    <form onSubmit={handleLogin} className="flex flex-col">
-      <label>
-        Email:{" "}
+    <form onSubmit={handleLogin} className="flex flex-col gap-1">
+      <label className="flex justify-between items-center">
+        Email:
         <input
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="inputField"
         />
       </label>
-      <label>
-        Password:{" "}
+      <label className="flex justify-between items-center gap-2">
+        Password:
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="inputField"
         />
       </label>
-      <button type="submit">Login</button>
-      <span>{loginError}</span>
+      <button type="submit" className="w-full mt-4 border-2 py-1 font-semibold">
+        <span className="">Login</span>
+      </button>
+      <div className="w-64 h-8 my-2 flex justify-center items-center self-center text-center">
+        <span className="text-sm">{loginError}</span>
+      </div>
     </form>
   );
 };

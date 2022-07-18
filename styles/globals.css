@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .inputField {
+    @apply pl-2 bg-primary-200  border-2 border-primary-400 rounded-md focus:outline-none focus:border-2 focus:border-primary-700 w-44 sm:w-auto;
+  }
+}

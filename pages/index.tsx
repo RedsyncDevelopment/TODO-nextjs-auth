@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 import Tasks from "../components/pages/home/Main/Tasks";
 
 const startingTasks = [
-  { id: "1", heading: "Task1", checked: true },
-  { id: "2", heading: "Task2", checked: false },
-  { id: "3", heading: "Task3", checked: false },
+  { id: "1", heading: "Sleep", checked: true },
+  { id: "2", heading: "Code", checked: false },
+  { id: "3", heading: "Eat", checked: false },
 ];
 
 export default function Component(props: any) {
@@ -17,7 +17,7 @@ export default function Component(props: any) {
   const handleAddTask = (e: React.SyntheticEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (newTask.length < 3) {
-      setTitleError("Please enter more than 3 characters");
+      setTitleError("Please enter more than 3 characters!");
       return;
     } else {
       setTitleError("");
@@ -47,14 +47,18 @@ export default function Component(props: any) {
 
   return (
     <>
-      <div className="bg-primary-200 min-h-screen">
-        <div>
-          <h1>Here is a simple demo</h1>
-          <span>
-            If you like it, you can register and save your tasks in{" "}
-            <Link href="/home">My Tasks</Link>
-          </span>
-        </div>
+      <div className="flex flex-col justify-center items-center px-4">
+        <h1 className="text-xl font-semibold pt-10 pb-4">
+          Here is a simple demo
+        </h1>
+        <span className="text-center">
+          If you like it, you can register and save your tasks in{" "}
+          <Link href="/home">
+            <span className="font-semibold underline cursor-pointer">
+              My Tasks
+            </span>
+          </Link>
+        </span>
         <Tasks
           newTask={newTask}
           setNewTask={setNewTask}

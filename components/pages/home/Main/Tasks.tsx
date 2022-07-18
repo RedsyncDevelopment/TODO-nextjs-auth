@@ -23,21 +23,32 @@ const Tasks: React.FC<TasksProps> = ({
 }) => {
   return (
     <>
-      <div className="flex justify-center items-center py-6">
-        <form onSubmit={handleAddTask}>
-          <label htmlFor="task">
-            Create Task
-            <input
-              id="task"
-              typeof="text"
-              value={newTask}
-              onChange={(e: any) => {
-                setNewTask(e.target.value);
-              }}
-            ></input>
-          </label>
+      <div className="flex gap-2 justify-center items-center py-6">
+        <form
+          onSubmit={handleAddTask}
+          className="flex flex-col justify-center items-center gap-2"
+        >
+          <div className="flex gap-2 flex-col justify-center items-center">
+            <label
+              htmlFor="task"
+              className="flex flex-col justify-center items-center gap-2"
+            >
+              Create Task:
+              <input
+                id="task"
+                typeof="text"
+                value={newTask}
+                onChange={(e: any) => {
+                  setNewTask(e.target.value);
+                }}
+                className="inputField sm:w-96 w-64 h-14 text-lg"
+              ></input>
+            </label>
+            <button type="submit" className="border-2 w-32">
+              Add
+            </button>
+          </div>
           <div>{titleError}</div>
-          <button type="submit">Add</button>
         </form>
       </div>
       <div className="flex flex-col gap-4 justify-center items-center">
