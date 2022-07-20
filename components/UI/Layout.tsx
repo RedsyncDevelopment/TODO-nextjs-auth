@@ -21,12 +21,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <div
         className={`w-full flex justify-between p-4  ${
-          dark ? "bg-primary-700" : "bg-primary-200"
+          dark ? "bg-primary-dark-700" : "bg-primary-light-700"
         }`}
       >
         <Link href="/">
           <h1
-            className={`border-2 px-4 py-2 ml-12 cursor-pointer ${
+            className={`border-2 py-2 px-2 sm:px-4 sm:py-2 sm:ml-12 ml-6 cursor-pointer ${
               dark ? "text-white border-slate-200" : "border-slate-700"
             }`}
           >
@@ -80,7 +80,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </button>
         </div>
       </div>
-      <div className="min-h-screen bg-primary-200">{children}</div>
+      <div
+        className={`min-h-screen ${
+          dark ? "bg-primary-dark-200" : "bg-primary-light-200"
+        } `}
+      >
+        {children}
+      </div>
     </>
   );
 };

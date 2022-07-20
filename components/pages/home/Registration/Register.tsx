@@ -1,11 +1,13 @@
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useContext, useState } from "react";
+import { ThemeContext } from "../../../../states/context/theme/ThemeContext";
 
 interface RegisterProps {}
 
 const Register: React.FC<RegisterProps> = () => {
+  const { dark } = useContext(ThemeContext);
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -78,7 +80,7 @@ const Register: React.FC<RegisterProps> = () => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="inputField"
+              className={`${dark ? "inputField" : "inputFieldLight"}`}
             ></input>
           </label>
           {errorName && (
@@ -93,7 +95,7 @@ const Register: React.FC<RegisterProps> = () => {
               type="text"
               value={email}
               onChange={handleEmail}
-              className="inputField"
+              className={`${dark ? "inputField" : "inputFieldLight"}`}
             ></input>
           </label>
           {errorEmail && (
@@ -108,7 +110,7 @@ const Register: React.FC<RegisterProps> = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="inputField"
+              className={`${dark ? "inputField" : "inputFieldLight"}`}
             ></input>
           </label>
           {errorPassword && (

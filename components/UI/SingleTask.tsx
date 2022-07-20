@@ -1,7 +1,8 @@
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
-import { green } from "@mui/material/colors";
-import React, { useState } from "react";
+import { green, orange } from "@mui/material/colors";
+import React, { useContext, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
+import { ThemeContext } from "../../states/context/theme/ThemeContext";
 
 interface SingletaskProps {
   task: any;
@@ -14,6 +15,7 @@ const Singletask: React.FC<SingletaskProps> = ({
   toggleComplete,
   removeTask,
 }) => {
+  const { dark } = useContext(ThemeContext);
   const [showButton, setShowButton] = useState(false);
 
   const toggleCompleted = (e: any) => {
@@ -28,7 +30,9 @@ const Singletask: React.FC<SingletaskProps> = ({
   return (
     <>
       <div
-        className="border-2 py-4 px-6 bg-primary-700 w-full sm:w-96 lg:w-[780px] flex items-center justify-between"
+        className={`${
+          dark ? "bg-primary-dark-700" : "bg-primary-light-700"
+        } border-2 py-4 px-6  w-72 sm:w-96 lg:w-[780px] flex items-center justify-between`}
         onMouseEnter={() => setShowButton(true)}
         onMouseLeave={() => setShowButton(false)}
       >
@@ -39,18 +43,33 @@ const Singletask: React.FC<SingletaskProps> = ({
                 id={task.id}
                 onChange={toggleCompleted}
                 checked={task.checked}
-                sx={{
-                  color: green[900],
-                  "&.Mui-checked": {
-                    color: green[900],
-                  },
-                }}
+                sx={
+                  dark
+                    ? {
+                        color: green[900],
+                        "&.Mui-checked": {
+                          color: green[900],
+                        },
+                      }
+                    : {
+                        color: orange[700],
+                        "&.Mui-checked": {
+                          color: orange[700],
+                        },
+                      }
+                }
               />
             }
             label={
               <div>
                 {task.checked ? (
-                  <span className="text-secondary-400 line-through decoration-primary-200 decoration-2">
+                  <span
+                    className={`text-secondary-dark-400 line-through ${
+                      dark
+                        ? "decoration-primary-dark-200"
+                        : "decoration-primary-light-200"
+                    }  decoration-2`}
+                  >
                     {task.heading}
                   </span>
                 ) : (

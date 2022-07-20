@@ -4,6 +4,10 @@
 
 @layer components {
   .inputField {
-    @apply pl-2 bg-primary-200  border-2 border-primary-400 rounded-md focus:outline-none focus:border-2 focus:border-primary-700 w-44 sm:w-auto;
+    @apply pl-2 bg-primary-dark-200  border-2 border-primary-dark-400 rounded-md focus:outline-none focus:border-2 focus:border-primary-dark-700 w-44 sm:w-auto;
+  }
+
+  .inputFieldLight {
+    @apply pl-2 bg-primary-light-200  border-2 border-primary-light-400 rounded-md focus:outline-none focus:border-2 focus:border-primary-light-700 w-44 sm:w-auto;
   }
 }

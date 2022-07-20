@@ -1,11 +1,12 @@
 import MuiModal from "@mui/material/Modal";
 import Credentials from "next-auth/providers/credentials";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useContext, useState } from "react";
 import useStore from "../../../../states/store/useStore";
 import Register from "./Register";
 import SignIn from "./SignIn";
 
 import { AiOutlineCloseSquare } from "react-icons/ai";
+import { ThemeContext } from "../../../../states/context/theme/ThemeContext";
 
 interface RegistrationFromProps {
   children?: ReactNode;
@@ -17,6 +18,7 @@ const RegistrationFrom: React.FC<RegistrationFromProps> = ({ children }) => {
   const showModal = useStore((state) => state.showModal);
   const setShowModal = useStore((state) => state.setShowModal);
   const [openRegister, setOpenRegister] = useState(false);
+  const { dark } = useContext(ThemeContext);
 
   const handleOpenRegister = () => {
     setOpenRegister((current) => !current);
@@ -32,7 +34,11 @@ const RegistrationFrom: React.FC<RegistrationFromProps> = ({ children }) => {
       >
         <>
           <div className="pt-4 flex flex-col justify-center items-center">
-            <div className="relative px-6 pt-6 pb-4 sm:px-14 sm:pt-14 sm:pb-10 border-2 bg-primary-400">
+            <div
+              className={`relative px-6 pt-6 pb-4 sm:px-14 sm:pt-14 sm:pb-10 border-2 ${
+                dark ? "bg-primary-dark-400" : "bg-primary-light-400"
+              } `}
+            >
               <button
                 onClick={() => {
                   setShowModal(false);

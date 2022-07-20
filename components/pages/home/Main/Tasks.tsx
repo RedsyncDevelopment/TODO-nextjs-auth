@@ -1,4 +1,5 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
+import { ThemeContext } from "../../../../states/context/theme/ThemeContext";
 import Singletask from "../../../UI/SingleTask";
 
 interface TasksProps {
@@ -21,6 +22,8 @@ const Tasks: React.FC<TasksProps> = ({
   newTask,
   setNewTask,
 }) => {
+  const { dark } = useContext(ThemeContext);
+
   return (
     <>
       <div className="flex gap-2 justify-center items-center py-6">
@@ -41,7 +44,9 @@ const Tasks: React.FC<TasksProps> = ({
                 onChange={(e: any) => {
                   setNewTask(e.target.value);
                 }}
-                className="inputField sm:w-96 w-64 h-14 text-lg"
+                className={`${
+                  dark ? "inputField" : "inputFieldLight"
+                } sm:w-96 w-64 h-14 text-lg`}
               ></input>
             </label>
             <button type="submit" className="border-2 w-32">

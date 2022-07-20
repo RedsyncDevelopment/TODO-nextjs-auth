@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import Tasks from "../../components/pages/home/Main/Tasks";
+import { ThemeContext } from "../../states/context/theme/ThemeContext";
 import useStore from "../../states/store/useStore";
 
 interface HomePageProps {
@@ -14,6 +15,8 @@ const HomePage: React.FC<HomePageProps> = ({ children }) => {
   const [tasks, setTasks] = useState<[] | any>();
   const [newTask, setNewTask] = useState("");
   const [titleError, setTitleError] = useState("");
+
+  const { dark } = useContext(ThemeContext);
 
   const setShowModal = useStore((state) => state.setShowModal);
 
@@ -72,7 +75,11 @@ const HomePage: React.FC<HomePageProps> = ({ children }) => {
   if (session) {
     return (
       <>
-        <div className="bg-primary-200 min-h-screen flex flex-col items-center px-4">
+        <div
+          className={` ${
+            dark ? "bg-primary-dark-200" : "bg-primary-light-200"
+          } min-h-screen flex flex-col items-center px-4`}
+        >
           <h2 className="text-xl pt-10 pb-4">
             Signed in as{" "}
             <span className="font-semibold">{session.user?.name}</span>
@@ -93,7 +100,11 @@ const HomePage: React.FC<HomePageProps> = ({ children }) => {
 
   return (
     <>
-      <div className="bg-primary-200 min-h-screen flex flex-col items-center px-4">
+      <div
+        className={`${
+          dark ? "bg-primary-dark-200" : "bg-primary-light-200"
+        } min-h-screen flex flex-col items-center px-4`}
+      >
         <h2 className="text-xl pt-10 pb-4">
           Please{" "}
           <span
