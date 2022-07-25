@@ -6,7 +6,7 @@ import { ThemeContext } from "../../states/context/theme/ThemeContext";
 import useStore from "../../states/store/useStore";
 import RegistrationFrom from "../pages/home/Registration/RegistrationForm";
 
-import { BsFillSunFill, BsSun } from "react-icons/bs";
+import { RiCheckboxBlankFill } from "react-icons/ri";
 
 interface LayoutProps {
   children?: ReactNode;
@@ -73,9 +73,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           )}
           <button onClick={toggleTheme}>
             {dark ? (
-              <BsFillSunFill className="w-6 h-6" />
+              <div className="sm:w-16 flex flex-col justify-center items-center">
+                <RiCheckboxBlankFill className="w-6 h-6 text-primary-light-400" />
+
+                <span className="hidden sm:block">Orange</span>
+              </div>
             ) : (
-              <BsSun className="w-6 h-6" />
+              <div className="sm:w-16 flex flex-col justify-center items-center">
+                <RiCheckboxBlankFill className="w-6 h-6 text-primary-dark-400" />
+
+                <span className="hidden sm:block">Green</span>
+              </div>
             )}
           </button>
         </div>
